@@ -11,3 +11,9 @@ apt_repository("node.js") do
   key "C7917B12"
 end
 package 'nodejs'
+
+if %w{ amazon, centos, fedora, redhat, rhel }.include?(node["platform_family"])
+  package 'postgresql-devel'
+elsif %w{ debian, ubuntu }.include?(node["platform_family"])
+  package 'libpq-dev'
+end
