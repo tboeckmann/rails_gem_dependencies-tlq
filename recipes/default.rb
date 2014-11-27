@@ -12,8 +12,8 @@ apt_repository("node.js") do
 end
 package 'nodejs'
 
-if %w{ amazon, centos, fedora, redhat, rhel }.include?(node["platform_family"])
-  package 'postgresql-devel'
-elsif %w{ debian, ubuntu }.include?(node["platform_family"])
-  package 'libpq-dev'
+if ["debian","ubuntu"].include? node['platform']
+  package "libpq-dev" do
+    action :nothing
+  end.run_action(:install)
 end
